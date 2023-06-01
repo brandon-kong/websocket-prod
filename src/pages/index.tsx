@@ -1,9 +1,27 @@
 import Image from 'next/image'
+import { useEffect } from 'react'
 import { Inter } from 'next/font/google'
+
+import { io } from 'socket.io-client'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  
+  const socketInit = async () => {
+    await fetch('/api/socket')
+    var socket = io(undefined, {
+      path: '/api/socket_io',
+    })
+
+    socket.on('connect', () => {
+      alert('connect')
+    })
+  }
+
+  useEffect(() => {
+    socketInit()
+  })
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
