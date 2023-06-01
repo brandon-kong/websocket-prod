@@ -10,7 +10,8 @@ export default function Home() {
   
   const socketInit = async () => {
     await fetch('/api/socket')
-    var socket = io(undefined, {
+    
+    var socket = io(process.env.PUBLIC_URL as string, {
       path: '/api/socket_io',
     })
 
@@ -22,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     socketInit()
   })
-  
+
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
